@@ -104,10 +104,27 @@ describe('Grafana Annotation Action Tests', () => {
     // ****************************************************************************************
     test('Update Annotation: update', () => {
         process.env.INPUT_GRAFANAANNOTATIONID = "12345";
+        process.env.INPUT_GRAFANATAGS = ''
         axios.patch.mockImplementation(() => Promise.resolve({ status: 200}));
         run();
         expect(axios.post).toBeCalledTimes(0);
         expect(axios.patch).toBeCalledTimes(1);
         expect(axios.patch).toBeCalledWith(expect.anything(), { timeEnd: expect.any(Number) }, expect.anything());
+    });
+    
+    test('Update Annotation: update with tags', () => {
+        process.env.INPUT_GRAFANAANNOTATIONID = "12345";
+        process.env.INPUT_GRAFANATAGS = 'tag:something\ntag2:something'
+        axios.patch.mockImplementation(() => Promise.resolve({ status: 200}));
+        run();
+        expect(axios.post).toBeCalledTimes(0);
+        expect(axios.patch).toBeCalledTimes(1);
+        expect(axios.patch).toBeCalledWith(expect.anything(), { 
+            timeEnd: expect.any(Number),
+            tags: [
+                'tag:something',
+                'tag2:something',
+            ]
+        }, expect.anything());
     });
 });
