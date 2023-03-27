@@ -68,9 +68,11 @@ export const run = () => {
         } else {
             console.log("updating the end time of existing annotation");
             let payload = {
-                timeEnd: moment.now().valueOf(),
-                tags: grafanaTags
+                timeEnd: moment.now().valueOf()
             };
+            if (grafanaTags) {
+                payload.tags = grafanaTags
+            }
 
             console.log(`updating the 'time-end' of annotation [${grafanaAnnotationID}]`);
             axios.patch(
