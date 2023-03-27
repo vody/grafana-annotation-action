@@ -70,7 +70,7 @@ export const run = () => {
             let payload = {
                 timeEnd: moment.now().valueOf()
             };
-            if (grafanaTags) {
+            if (grafanaTags && grafanaTags.length > 0) {
                 payload.tags = grafanaTags
             }
 
