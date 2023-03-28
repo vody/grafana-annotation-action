@@ -15,7 +15,5 @@ jobs:
         with:
           new_branch: 'gh_action'
           add: 'action.yml dist/index.js package.json package-lock.json README.md --force'
-          push: true
+          fetch: false
           tag: 'v0.4.${{ github.run_number }} --force'
-        
-      
